@@ -13,7 +13,8 @@ on:
       - '**/README.md'
 
 env:
-  IMAGE_NAME: triton-cpu-onnxruntime-r23_12
+  IMAGE_NAME: triton-cpu-onnxruntime
+  IMAGE_TAG_PREFIX: r23.12
 
 jobs:
   image:
@@ -36,6 +37,6 @@ jobs:
       - name: Push image
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-          VERSION=${{ github.run_number }}
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          VERSION=$IMAGE_TAG_PREFIX.${{ github.run_number }}
+          docker tag tritonserver:latest $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
