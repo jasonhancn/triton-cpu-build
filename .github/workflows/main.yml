@@ -30,7 +30,7 @@ jobs:
           wget -c https://github.com/triton-inference-server/server/archive/refs/tags/v2.41.0.zip
           unzip v2.41.0.zip
           cd server-2.41.0
-          python build.py --enable-logging--endpoint=grpc --endpoint=http --repo-tag=common:r23.12 --backend=onnxruntime:r23.12 --repoagent=checksum
+          python build.py --enable-logging --endpoint=grpc --endpoint=http --repo-tag=common:r23.12 --backend=onnxruntime:r23.12 --repoagent=checksum
           docker images
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
