@@ -48,5 +48,5 @@ jobs:
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
           VERSION=$IMAGE_TAG_PREFIX.${{ github.run_number }}
-          docker tag tritonserver_onnxruntime:latest $IMAGE_ID:$VERSION
+          docker tag tritonserver:latest $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
