@@ -35,7 +35,7 @@ jobs:
             --endpoint=http --repoagent=checksum \
             --repo-tag=common:r23.12 --repo-tag=core:r23.12 \
             --repo-tag=backend:r23.12 --repo-tag=thirdparty:r23.12 \
-            --backend=onnxruntime:r23.12 --backend=python:r23.12 \
+            --backend=onnxruntime:r23.12 --backend=python:r23.12 --backend=ensemble \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_STATS=OFF \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_ONNXRUNTIME_OPENVINO=OFF \
