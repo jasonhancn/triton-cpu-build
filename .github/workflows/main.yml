@@ -35,12 +35,19 @@ jobs:
             --endpoint=http --repoagent=checksum \
             --repo-tag=common:r23.12 --repo-tag=core:r23.12 \
             --repo-tag=backend:r23.12 --repo-tag=thirdparty:r23.12 \
-            --backend=onnxruntime:r23.12 --backend=python:r23.12 --backend=ensemble \
+            --backend=onnxruntime:r23.12 --backend=python:r23.12 \
+            --backend=pytorch:r23.12 --backend=ensemble \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_STATS=OFF \
             --override-backend-cmake-arg=onnxruntime:TRITON_BACKEND_REPO_TAG=r23.12 \
             --override-backend-cmake-arg=onnxruntime:TRITON_CORE_REPO_TAG=r23.12 \
             --override-backend-cmake-arg=onnxruntime:TRITON_COMMON_REPO_TAG=r23.12 \
+            --override-backend-cmake-arg=pytorch:TRITON_ENABLE_GPU=OFF \
+            --override-backend-cmake-arg=pytorch:TRITON_ENABLE_STATS=OFF \
+            --override-backend-cmake-arg=pytorch:TRITON_PYTORCH_ENABLE_TORCHVISION=OFF \
+            --override-backend-cmake-arg=pytorch:TRITON_BACKEND_REPO_TAG=r23.12 \
+            --override-backend-cmake-arg=pytorch:TRITON_CORE_REPO_TAG=r23.12 \
+            --override-backend-cmake-arg=pytorch:TRITON_COMMON_REPO_TAG=r23.12 \
             --override-backend-cmake-arg=python:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=python:TRITON_ENABLE_STATS=OFF \
             --override-backend-cmake-arg=python:TRITON_BACKEND_REPO_TAG=r23.12 \
