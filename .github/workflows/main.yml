@@ -37,7 +37,7 @@ jobs:
           rm -f v2.41.0.zip
           cd server-2.41.0
           python build.py --no-container-interactive --no-container-source \
-            --image=base,ubuntu:22.04 \
+            --image=base,ubuntu:22.04 --image=gpu-base,nvcr.io/nvidia/tritonserver:23.12-py3-min \
             --enable-logging --endpoint=grpc --endpoint=http --repoagent=checksum \
             --repo-tag=common:r23.12 --repo-tag=core:r23.12 --repo-tag=backend:r23.12 --repo-tag=thirdparty:r23.12 \
             --backend=onnxruntime:r23.12 --backend=python:r23.12 --backend=pytorch:r23.12 --backend=ensemble \
