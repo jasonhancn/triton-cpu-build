@@ -17,14 +17,6 @@ env:
   IMAGE_TAG_PREFIX: r23.12
 
 jobs:
-  free-disk-space:
-    name: Free Disk Cache
-    runs-on: ubuntu-latest
-    steps:
-    - name: Free Disk Space (Ubuntu)
-      uses: jlumbroso/free-disk-space@main
-      with:
-        tool-cache: true
   image:
     name: Build Image And Push
     runs-on: ubuntu-latest
@@ -32,11 +24,17 @@ jobs:
       packages: write
       contents: read
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
       - uses: actions/checkout@v2
       - name: Build image
         run: |
+          df -h
           wget -c https://github.com/triton-inference-server/server/archive/refs/tags/v2.41.0.zip
           unzip v2.41.0.zip
+          rm -f v2.41.0.zip
           cd server-2.41.0
           python build.py --no-container-interactive --no-container-source \
             --image=base,ubuntu:22.04 --image=gpu-base,nvcr.io/nvidia/tritonserver:23.12-py3-min \
