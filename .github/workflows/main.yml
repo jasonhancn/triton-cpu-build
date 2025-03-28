@@ -13,8 +13,8 @@ on:
       - '**/README.md'
 
 env:
-  IMAGE_NAME: triton-cpu
-  IMAGE_TAG_PREFIX: r23.12
+  IMAGE_NAME: triton-cpu-onnxruntime
+  IMAGE_TAG_PREFIX: r25.02
 
 jobs:
   image:
@@ -24,40 +24,35 @@ jobs:
       packages: write
       contents: read
     steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-        with:
-          tool-cache: true
       - uses: actions/checkout@v2
       - name: Build image
         run: |
-          df -h
-          wget -c https://github.com/triton-inference-server/server/archive/refs/tags/v2.41.0.zip
-          unzip v2.41.0.zip
-          rm -f v2.41.0.zip
-          cd server-2.41.0
+          wget -c https://github.com/triton-inference-server/server/archive/refs/tags/v2.55.0.zip
+          unzip v2.55.0.zip
+          cd server-2.55.0
           python build.py --no-container-interactive --no-container-source \
-            --image=base,ubuntu:22.04 --image=gpu-base,nvcr.io/nvidia/tritonserver:23.12-py3-min \
-            --enable-logging --endpoint=grpc --endpoint=http --repoagent=checksum \
-            --repo-tag=common:r23.12 --repo-tag=core:r23.12 --repo-tag=backend:r23.12 --repo-tag=thirdparty:r23.12 \
-            --backend=onnxruntime:r23.12 --backend=python:r23.12 --backend=pytorch:r23.12 --backend=ensemble \
+            --image=base,ubuntu:22.04 --image=gpu-base,nvcr.io/nvidia/tritonserver:25.02-py3-min \
+            --enable-logging --endpoint=grpc \
+            --endpoint=http --repoagent=checksum \
+            --repo-tag=common:r25.02 --repo-tag=core:r25.02 \
+            --repo-tag=backend:r25.02 --repo-tag=thirdparty:r25.02 \
+            --backend=onnxruntime:r25.02 --backend=python:r25.02 --backend=ensemble \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_STATS=OFF \
-            --override-backend-cmake-arg=onnxruntime:TRITON_BACKEND_REPO_TAG=r23.12 \
-            --override-backend-cmake-arg=onnxruntime:TRITON_CORE_REPO_TAG=r23.12 \
-            --override-backend-cmake-arg=onnxruntime:TRITON_COMMON_REPO_TAG=r23.12 \
-            --override-backend-cmake-arg=pytorch:TRITON_ENABLE_GPU=OFF \
-            --override-backend-cmake-arg=pytorch:TRITON_ENABLE_STATS=OFF \
-            --extra-backend-cmake-arg=pytorch:TRITON_PYTORCH_ENABLE_TORCHVISION=OFF \
-            --override-backend-cmake-arg=pytorch:TRITON_PYTORCH_ENABLE_TORCHTRT=OFF \
-            --override-backend-cmake-arg=pytorch:TRITON_BACKEND_REPO_TAG=r23.12 \
-            --override-backend-cmake-arg=pytorch:TRITON_CORE_REPO_TAG=r23.12 \
-            --override-backend-cmake-arg=pytorch:TRITON_COMMON_REPO_TAG=r23.12 \
+            --override-backend-cmake-arg=onnxruntime:TRITON_BACKEND_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=onnxruntime:TRITON_CORE_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=onnxruntime:TRITON_COMMON_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=tensorflow2:TRITON_ENABLE_GPU=OFF \
+            --override-backend-cmake-arg=tensorflow2:TRITON_ENABLE_STATS=OFF \
+            --override-backend-cmake-arg=tensorflow2:TRITON_BACKEND_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=tensorflow2:TRITON_CORE_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=tensorflow2:TRITON_COMMON_REPO_TAG=r25.02 \
+            --extra-backend-cmake-arg=tensorflow2:TRITON_TENSORFLOW_INSTALL_EXTRA_DEPS=ON \
             --override-backend-cmake-arg=python:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=python:TRITON_ENABLE_STATS=OFF \
-            --override-backend-cmake-arg=python:TRITON_BACKEND_REPO_TAG=r23.12 \
-            --override-backend-cmake-arg=python:TRITON_CORE_REPO_TAG=r23.12 \
-            --override-backend-cmake-arg=python:TRITON_COMMON_REPO_TAG=r23.12
+            --override-backend-cmake-arg=python:TRITON_BACKEND_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=python:TRITON_CORE_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=python:TRITON_COMMON_REPO_TAG=r25.02
           docker images
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
