@@ -40,12 +40,20 @@ jobs:
             --override-backend-cmake-arg=onnxruntime:TRITON_BACKEND_REPO_TAG=r25.02 \
             --override-backend-cmake-arg=onnxruntime:TRITON_CORE_REPO_TAG=r25.02 \
             --override-backend-cmake-arg=onnxruntime:TRITON_COMMON_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=onnxruntime:TRITON_BUILD_ONNXRUNTIME_VERSION=1.20.1 \
+            --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_ONNXRUNTIME_OPENVINO=ON \
+            --override-backend-cmake-arg=onnxruntime:TRITON_BUILD_ONNXRUNTIME_OPENVINO_VERSION=2025.0.0 \
+            --extra-backend-cmake-arg=onnxruntime:CMAKE_C_FLAGS="-march=core-avx2 -mtune=generic -O3 -ffast-math -mavx2 -mfma -pipe" \
+            --extra-backend-cmake-arg=onnxruntime:CMAKE_CXX_FLAGS="-march=core-avx2 -mtune=generic -O3 -ffast-math -mavx2 -mfma -pipe" \
             --override-backend-cmake-arg=tensorflow:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=tensorflow:TRITON_ENABLE_STATS=OFF \
             --override-backend-cmake-arg=tensorflow:TRITON_BACKEND_REPO_TAG=r25.02 \
             --override-backend-cmake-arg=tensorflow:TRITON_CORE_REPO_TAG=r25.02 \
             --override-backend-cmake-arg=tensorflow:TRITON_COMMON_REPO_TAG=r25.02 \
+            --override-backend-cmake-arg=tensorflow:TRITON_TENSORFLOW_DOCKER_IMAGE=tensorflow/tensorflow:2.18.0 \
             --extra-backend-cmake-arg=tensorflow:TRITON_TENSORFLOW_INSTALL_EXTRA_DEPS=ON \
+            --extra-backend-cmake-arg=tensorflow:CMAKE_C_FLAGS="-march=core-avx2 -mtune=generic -O3 -mavx2 -mfma" \
+            --extra-backend-cmake-arg=tensorflow:CMAKE_CXX_FLAGS="-march=core-avx2 -mtune=generic -O3 -mavx2 -mfma" \
             --override-backend-cmake-arg=python:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=python:TRITON_ENABLE_STATS=OFF \
             --override-backend-cmake-arg=python:TRITON_BACKEND_REPO_TAG=r25.02 \
