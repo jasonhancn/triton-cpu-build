@@ -32,7 +32,7 @@ jobs:
           unzip v2.55.0.zip
           cd server-2.55.0
           python build.py --no-container-interactive --no-container-source \
-            --image=gpu-base,nvcr.io/nvidia/tritonserver:25.02-py3-min \
+            --image=base,ubuntu:24.04 --image=gpu-base,nvcr.io/nvidia/tritonserver:25.02-py3-min \
             --enable-logging --endpoint=grpc --endpoint=http --repoagent=checksum \
             --repo-tag=common:r25.02 --repo-tag=core:r25.02 --repo-tag=backend:r25.02 --repo-tag=thirdparty:r25.02 \
             --backend=onnxruntime:r25.02 --backend=tensorflow:r25.02 --backend=python:r25.02 --backend=ensemble \
