@@ -32,11 +32,9 @@ jobs:
           cd server-2.55.0
           python build.py --no-container-interactive --no-container-source \
             --image=base,ubuntu:22.04 --image=gpu-base,nvcr.io/nvidia/tritonserver:25.02-py3-min \
-            --enable-logging --endpoint=grpc \
-            --endpoint=http --repoagent=checksum \
-            --repo-tag=common:r25.02 --repo-tag=core:r25.02 \
-            --repo-tag=backend:r25.02 --repo-tag=thirdparty:r25.02 \
-            --backend=onnxruntime:r25.02 --backend=python:r25.02 --backend=ensemble \
+            --enable-logging --endpoint=grpc --endpoint=http --repoagent=checksum \
+            --repo-tag=common:r25.02 --repo-tag=core:r25.02 --repo-tag=backend:r25.02 --repo-tag=thirdparty:r25.02 \
+            --backend=onnxruntime:r25.02 --backend=tensorflow2:r25.02 --backend=python:r25.02 --backend=ensemble \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_GPU=OFF \
             --override-backend-cmake-arg=onnxruntime:TRITON_ENABLE_STATS=OFF \
             --override-backend-cmake-arg=onnxruntime:TRITON_BACKEND_REPO_TAG=r25.02 \
